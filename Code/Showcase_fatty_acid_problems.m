@@ -68,6 +68,7 @@ sinks = contains(R3.rxns,'sink_');
 DMs_and_sinks = DMs + sinks; % boolean vector
 DMs_and_sinks_fluxes_inw = find(sol.v < 0 & DMs_and_sinks);
 
+fprintf('There are active sink and demand reactions:')
 table(R3.rxns(DMs_and_sinks_fluxes_inw), sol.v(DMs_and_sinks_fluxes_inw), R3.rxnNames(DMs_and_sinks_fluxes_inw),'VariableNames',{'ID', 'Flux', 'Name'})
 
 %% Impose blocks on demand and amino acid sink reactions
@@ -92,6 +93,7 @@ sinks = contains(R3.rxns,'sink_');
 DMs_and_sinks = DMs + sinks; % boolean vector
 DMs_and_sinks_fluxes_inw = find(sol.v < 0 & DMs_and_sinks);
 
+fprintf('There are still active sink and demand reactions:')
 table(R3.rxns(DMs_and_sinks_fluxes_inw), sol.v(DMs_and_sinks_fluxes_inw), R3.rxnNames(DMs_and_sinks_fluxes_inw),'VariableNames',{'ID', 'Flux', 'Name'})
 
 %% Block all inward sinks
@@ -110,6 +112,7 @@ sinks = contains(R3.rxns,'sink_');
 DMs_and_sinks = DMs + sinks; % boolean vector
 DMs_and_sinks_fluxes_inw = find(sol.v < 0 & DMs_and_sinks);
 
+fprintf('There are no more active sink and demand reactions:')
 table(R3.rxns(DMs_and_sinks_fluxes_inw), sol.v(DMs_and_sinks_fluxes_inw), R3.rxnNames(DMs_and_sinks_fluxes_inw),'VariableNames',{'ID', 'Flux', 'Name'})
 
 %% Show that the triglycerides sink alone solves the problem
