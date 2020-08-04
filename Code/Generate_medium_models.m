@@ -21,33 +21,37 @@ for i = 1:6
                 'EX_val_L[e]'; 'EX_chol[e]'; 'EX_pnto_R[e]'; 'EX_fol[e]'; 'EX_ncam[e]'; ...
                 'EX_pydxn[e]'; 'EX_ribflv[e]'; 'EX_thm[e]'; 'EX_inost[e]'; 'EX_ca2[e]'; ...
                 'EX_cl[e]'; 'EX_fe3[e]'; 'EX_so4[e]'; 'EX_k[e]'; 'EX_na1[e]'; 'EX_hco3[e]'; ...
-                'EX_pi[e]'; 'EX_h2o[e]'; 'EX_o2[e]';'EX_co2[e]'}; 
-    allowed_lbs = -1*[0.4; 0.398; 0.201; ...
-        0.2; 0.801; 0.801; 0.798; 0.201; ... 
-        0.4; 0.4; 0.798; 0.0784; 0.398; ...
-        0.803; 0.028; 0.0083; 0.0091; 0.0328; ...
-        0.0194; 0.0011; 0.011; 0.04; 1.801;
-        117.4; 0.00024; 0.814; 5.33; 155.0; 44.04; ...
-        0.9; 55560; 1000; 1000];
+                'EX_pi[e]'; 'EX_h2o[e]'; 'EX_o2[e]'; 'EX_co2[e]'}; 
+    allowed_lbs = -1*[
+                0.4; 0.398; 0.201; ...
+                0.2; 0.801; 0.801; 0.798; 0.201; ... 
+                0.4; 0.4; 0.798; 0.0784; 0.398; ...
+                0.803; 0.028; 0.0083; 0.0091; 0.0328; ...
+                0.0194; 0.0011; 0.011; 0.04; 1.801;
+                117.4; 0.00024; 0.814; 5.33; 155.0; 44.04; ...
+                0.9; 55560; 1000; 1000];
+    
+    % change concentrations to Maximal Uptake Rates (MUR) by dividing by 48 hours
+    allowed_lbs = allowed_lbs / 48;
 
     R3 = changeRxnBounds(R3, allowed_IDs, allowed_lbs, 'l');
     
     switch medium
         case '1' % high glucose, glutamine
-            R3 = changeRxnBounds(R3, 'EX_glc_D[e]', -25, 'l');
-            R3 = changeRxnBounds(R3, 'EX_gln_L[e]', -4, 'l');
+            R3 = changeRxnBounds(R3, 'EX_glc_D[e]', -25/48, 'l');
+            R3 = changeRxnBounds(R3, 'EX_gln_L[e]', -4/48, 'l');
         case '2' % high glucose, no glutamine
-            R3 = changeRxnBounds(R3, 'EX_glc_D[e]', -25, 'l');
+            R3 = changeRxnBounds(R3, 'EX_glc_D[e]', -25/48, 'l');
             R3 = changeRxnBounds(R3, 'EX_gln_L[e]', 0, 'l');
         case '3' % low glucose, glutamine
-            R3 = changeRxnBounds(R3, 'EX_glc_D[e]', -5.55, 'l');
-            R3 = changeRxnBounds(R3, 'EX_gln_L[e]', -4, 'l');
+            R3 = changeRxnBounds(R3, 'EX_glc_D[e]', -5.55/48, 'l');
+            R3 = changeRxnBounds(R3, 'EX_gln_L[e]', -4/48, 'l');
         case '4' % low glucose, no glutamine
-            R3 = changeRxnBounds(R3, 'EX_glc_D[e]', -5.55, 'l');
+            R3 = changeRxnBounds(R3, 'EX_glc_D[e]', -5.55/48, 'l');
             R3 = changeRxnBounds(R3, 'EX_gln_L[e]', 0, 'l');
         case '5' % no glucose, glutamine
             R3 = changeRxnBounds(R3, 'EX_glc_D[e]', 0, 'l');
-            R3 = changeRxnBounds(R3, 'EX_gln_L[e]', -4, 'l');
+            R3 = changeRxnBounds(R3, 'EX_gln_L[e]', -4/48, 'l');
         case '6' % no glucose, no glutamine
             R3 = changeRxnBounds(R3, 'EX_glc_D[e]', 0, 'l');
             R3 = changeRxnBounds(R3, 'EX_gln_L[e]', 0, 'l');
@@ -86,10 +90,10 @@ for i = 1:6
     sol = optimizeCbModel(R3,'max');
     fprintf('Growth rate after setting medium bounds for medium #%s: %f.\n',medium, sol.f)
     
-    writeCbModel(R3, 'mat',['../Models/medium_only/Recon3DModel_301_patched_M' medium]);
+    writeCbModel(R3, 'mat',['../Models/medium_only/Recon3DModel_301_patched_MUR' medium]);
 end
 
 %% Write an Excel file 
-R3 = readCbModel('../Models/medium_only/Recon3DModel_301_patched_M1.mat');
+R3 = readCbModel('../Models/medium_only/Recon3DModel_301_patched_MUR1.mat');
 
-writeCbModel(R3,'format','xlsx','fileName','../Tables/Recon3DModel_301_patched_medium_1.xlsx')
+writeCbModel(R3,'format','xlsx','fileName','../Tables/Recon3DModel_301_patched_MUR1.xlsx')
