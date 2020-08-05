@@ -206,10 +206,29 @@ plot_count = 1;
 for i = 1:length(objectives) % loop over models
     subplot(4,2,plot_count)
     
-    hold on;
+    xlim([0,13]) % for extra space on the RHS
     
+    if min(results_min(:,i)) < 0
+        if max(results_max(:,i)) > 0
+            yrange = [1.1*min(results_min(:,i)), 1.1*max(results_max(:,i))];
+        else
+            yrange = [1.1*min(results_min(:,i)), 0];
+        end
+    else
+        if max(results_max(:,i)) > 0
+            yrange = [0, 1.1*max(results_max(:,i))];
+        else
+            yrange = [0, 0]; % should not happen
+        end
+    end
+    
+    ylength = yrange(2) - yrange(1);
+    ylim(yrange)
+    
+    hold on;
+        
     for j = 1:6 % loop over models for current objective i and if range is small show a marker
-        if abs(results_min(j,i) - results_max(j,i)) < 1e-3
+        if abs(results_min(j,i) - results_max(j,i)) < ylength / 25
             plot(j, results_max(j,i),'*','MarkerSize',5) 
         else
             plot([j; j],[(results_min(j,i))'; results_max(j,i)'], 'LineWidth',5)
@@ -219,26 +238,10 @@ for i = 1:length(objectives) % loop over models
     set(gca,'ColorOrderIndex',1) % reset color order
     
     for j = 7:12 % loop over models for current objective i and if range is small show a marker
-        if abs(results_min(j,i) - results_max(j,i)) < 1e-3
+        if abs(results_min(j,i) - results_max(j,i)) < ylength / 25
             plot(j, results_max(j,i),'*','MarkerSize',5) 
         else
             plot([j; j],[(results_min(j,i))'; results_max(j,i)'], 'LineWidth',5)
-        end
-    end
-    
-    xlim([0,13]) % for extra space on the RHS
-    
-    if min(results_min(:,i)) < 0
-        if max(results_max(:,i)) > 0
-            ylim([1.1*min(results_min(:,i)), 1.1*max(results_max(:,i))]) 
-        else
-            ylim([1.1*min(results_min(:,i)), 0]) 
-        end
-    else
-        if max(results_max(:,i)) > 0
-            ylim([0, 1.1*max(results_max(:,i))])
-        else
-            ylim([0, 0]) % should not happen
         end
     end
     
@@ -333,19 +336,51 @@ results_max
 set(0,'DefaultAxesFontName','Arial','DefaultTextFontName','Arial');
 titles = {'ATP synthase (ATPS4mi)','NADH dehydrogenase (NADH2\_u10mi)','ubiquinol-cytochrome c reductase (CYOR\_u10mi)',...
     'cytochrome c oxidase (CYOOm2i)','cytochrome c oxidase (CYOOm3i)','Pyruvate dehydrogenase (PDHm)'};
-figure('pos',[10 10 1400 600],'DefaultAxesFontSize',16)
+figure('pos',[10 10 1550 700],'DefaultAxesFontSize',16)
 plot_count = 1;
 for i = 1:length(objectives) % loop over models
     subplot(3,2,plot_count)
-    plot([1:12; 1:12],[(results_min(:,i))'; results_max(:,i)'], 'LineWidth',5,'Color','k')
-    hold on;
-    for j = 1:12 % loop over models for current objective i and if range is small show a marker
-        if abs(results_min(j,i) - results_max(j,i)) < 1e-2
-            plot(j, results_max(j,i),'*k')
+    
+    xlim([0,13]) % for extra space on the RHS
+    
+    if min(results_min(:,i)) < 0
+        if max(results_max(:,i)) > 0
+            yrange = [1.1*min(results_min(:,i)), 1.1*max(results_max(:,i))];
+        else
+            yrange = [1.1*min(results_min(:,i)), 0];
+        end
+    else
+        if max(results_max(:,i)) > 0
+            yrange = [0, 1.1*max(results_max(:,i))];
+        else
+            yrange = [0, 0]; % should not happen
         end
     end
-    xlim([0,13]) % for extra space on the RHS
-    ylim([min(0, min(results_min(:,i))) max(0, max(results_max(:,i)))])
+    
+    ylength = yrange(2) - yrange(1);
+    ylim(yrange)
+    
+    hold on;
+        
+    for j = 1:6 % loop over models for current objective i and if range is small show a marker
+        if abs(results_min(j,i) - results_max(j,i)) < ylength / 25
+            plot(j, results_max(j,i),'*','MarkerSize',5) 
+        else
+            plot([j; j],[(results_min(j,i))'; results_max(j,i)'], 'LineWidth',5)
+        end
+    end
+    
+    set(gca,'ColorOrderIndex',1) % reset color order
+    
+    for j = 7:12 % loop over models for current objective i and if range is small show a marker
+        if abs(results_min(j,i) - results_max(j,i)) < ylength / 25
+            plot(j, results_max(j,i),'*','MarkerSize',5) 
+        else
+            plot([j; j],[(results_min(j,i))'; results_max(j,i)'], 'LineWidth',5)
+        end
+    end
+    
+    box on;
     xticks(1:12)
     xticklabels({'PLC MUR1','PLC MUR2','PLC MUR3','PLC MUR4','PLC MUR5','PLC MUR6',...
                 'Huh7 MUR1','Huh7 MUR2','Huh7 MUR3','Huh7 MUR4','Huh7 MUR5','Huh7 MUR6'})
