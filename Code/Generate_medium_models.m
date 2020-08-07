@@ -29,7 +29,7 @@ for i = 1:6
                 0.803; 0.028; 0.0083; 0.0091; 0.0328; ...
                 0.0194; 0.0011; 0.011; 0.04; 1.801;
                 117.4; 0.00024; 0.814; 5.33; 155.0; 44.04; ...
-                0.9; 55560; 1000; 1000];
+                0.9; 55560; 48000; 48000]; % The latter two bounds are set so that after dividing by 48 they are equal to 1000 (e.g. virtually unbounded)
     
     % change concentrations to Maximal Uptake Rates (MUR) by dividing by 48 hours
     allowed_lbs = allowed_lbs / 48;

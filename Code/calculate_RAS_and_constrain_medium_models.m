@@ -37,7 +37,7 @@ for i = 1:length(datasets)
 end
 
 % How many reactions will get a restricted bound?
-length(find(~isnan(RASmatrix(:,1))))
+length(find(~isnan(RASmatrix(:,1)))), length(RASmatrix(:,1))
 
 % export the data for analysis in Python
 save('../Data/RAS_scores.mat','RASmatrix','-mat')
@@ -76,8 +76,7 @@ for j = 1:length(datasets)
                 rxn_val = RAScolumn(i);
 
                 if isnan(rxn_val) % no genes linked to reaction
-                    % check if bounds are 1000 (this excludes specifically set
-                    % exchange reactions
+                    % check if bounds are 1000 (this excludes specifically set exchange reactions)
                     if boundedModel.lb(i) == -1000
                         boundedModel.lb(i) = -1*maxScore;
                     end
@@ -113,7 +112,7 @@ end
 
 % plot results
 figure('pos',[10 10 1000 400],'DefaultAxesFontSize',16)
-semilogx(factor_alpha_values,results(1:6,:),'--') % PLC
+semilogx(factor_alpha_values,results(1:6,:),'--') % PLC; 
 hold on;
 ax = gca;
 ax.ColorOrderIndex = 1;
@@ -140,6 +139,7 @@ xticklabels({'PLC MUR1','PLC MUR2','PLC MUR3','PLC MUR4','PLC MUR5','PLC MUR6',.
                 'Huh7 MUR1','Huh7 MUR2','Huh7 MUR3','Huh7 MUR4','Huh7 MUR5','Huh7 MUR6'})
 xtickangle(45)
 ylabel('Maximal biomass flux [mM/h]')
+ylim([0, 0.015])
 export_fig('../Figures/biomass_at_final_alpha.png','-png','-r200','-p0.01')
 
 %% Compare various objectives across all models
@@ -395,10 +395,10 @@ fig = gcf; fig.PaperPositionMode = 'auto'; % on-screen size
 export_fig(strcat('../Figures/FVA_respiration.png'),'-png','-r200','-p0.01')
 
 %% Write all models to SBML
-for cell_line = {'PLC','Huh7'}
-    for medium = {'1','2','3','4','5','6'}
-        modelName = ['../Models/Recon3DModel_301_patched_MUR' char(medium), '_', char(cell_line), '_alpha=', num2str(factor_alpha_values(final_alpha_index)),'.mat'];
-        m = readCbModel(modelName);
-    writeCbModel(m, 'sbml', modelName);
-    end
-end
+% for cell_line = {'PLC','Huh7'}
+%     for medium = {'1','2','3','4','5','6'}
+%         modelName = ['../Models/Recon3DModel_301_patched_MUR' char(medium), '_', char(cell_line), '_alpha=', num2str(factor_alpha_values(final_alpha_index)),'.mat'];
+%         m = readCbModel(modelName);
+%     writeCbModel(m, 'sbml', modelName);
+%     end
+% end
