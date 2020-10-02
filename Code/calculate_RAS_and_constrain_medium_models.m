@@ -132,14 +132,25 @@ hold off;
 fig = gcf; fig.PaperPositionMode = 'auto'; % on-screen size
 export_fig('../Figures/biomass_vs_alpha.png','-png','-r200','-p0.01')
 
+
 % biomass bar plot
 figure('pos',[10 10 1000 400],'DefaultAxesFontSize',16)
-bar(results(:,final_alpha_index),'k')
-xticklabels({'PLC MUR1','PLC MUR2','PLC MUR3','PLC MUR4','PLC MUR5','PLC MUR6',...
-                'Huh7 MUR1','Huh7 MUR2','Huh7 MUR3','Huh7 MUR4','Huh7 MUR5','Huh7 MUR6'})
+bar(1:6,results(1:6,final_alpha_index),'k');
+
+hold on
+
+bar(7:12,results(7:12,final_alpha_index),'b');
+
+xticks([1:12])
+xticklabels({'MUR1','MUR2','MUR3','MUR4','MUR5','MUR6',...
+              'MUR1','MUR2','MUR3','MUR4','MUR5','MUR6'})
 xtickangle(45)
+
 ylabel('Maximal biomass flux [mM/2d]')
 ylim([0, 0.015])
+xlim([0.5,12.5])
+
+legend('PLC','Huh7')
 export_fig('../Figures/biomass_at_final_alpha.png','-png','-r200','-p0.01')
 
 %% Compare various objectives across all models
