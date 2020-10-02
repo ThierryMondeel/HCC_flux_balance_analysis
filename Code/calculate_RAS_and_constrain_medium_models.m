@@ -120,13 +120,13 @@ semilogx(factor_alpha_values,results(7:12,:),':') % Huh7
 %plot(factor_alpha_values, results(1:6,:),'k*') % diagnostic to see where the alpha values fall
 xlim([10^(-3.5),10^(0.2)])
 xlabel('Factor \alpha')
-ylabel('Maximal biomass flux [mM/h]')
+ylabel('Maximal biomass flux [mM/2d]')
 legend('PLC MUR1','PLC MUR2','PLC MUR3','PLC MUR4','PLC MUR5','PLC MUR6',...
         'Huh7 MUR1','Huh7 MUR2','Huh7 MUR3','Huh7 MUR4','Huh7 MUR5','Huh7 MUR6',...
-        'Location', 'eastoutside')
+        'Location', 'northwest')
 line([final_alpha, final_alpha],[0,0.03],'Color','black','LineStyle','--','HandleVisibility','off')
-annotation('textarrow', [0.72, 0.785],[0.72, 0.72], 'String','Uptake limited ', 'FontSize', 14) % normalized coordinates between 0 and 1
-annotation('textarrow', [0.66, 0.58],[0.77, 0.77], 'String',' Expression limited', 'FontSize', 14)
+annotation('textarrow', [0.83, 0.90],[0.72, 0.72], 'String','Uptake limited ', 'FontSize', 14) % normalized coordinates between 0 and 1
+annotation('textarrow', [0.78, 0.72],[0.77, 0.77], 'String',' Expression limited', 'FontSize', 14)
 hold off;
 
 fig = gcf; fig.PaperPositionMode = 'auto'; % on-screen size
@@ -138,7 +138,7 @@ bar(results(:,final_alpha_index),'k')
 xticklabels({'PLC MUR1','PLC MUR2','PLC MUR3','PLC MUR4','PLC MUR5','PLC MUR6',...
                 'Huh7 MUR1','Huh7 MUR2','Huh7 MUR3','Huh7 MUR4','Huh7 MUR5','Huh7 MUR6'})
 xtickangle(45)
-ylabel('Maximal biomass flux [mM/h]')
+ylabel('Maximal biomass flux [mM/2d]')
 ylim([0, 0.015])
 export_fig('../Figures/biomass_at_final_alpha.png','-png','-r200','-p0.01')
 
@@ -201,7 +201,7 @@ results_max
 % plot
 set(0,'DefaultAxesFontName','Arial','DefaultTextFontName','Arial');
 titles = {'Glucose','Glutamine','Oxygen','Phenylalanine','Lactate','Pyruvate','ATP','CO_2 + bicarbonate'};
-figure('pos',[10 10 1400 1000],'DefaultAxesFontSize',16)
+figure('pos',[10 10 1200 1000],'DefaultAxesFontSize',16)
 plot_count = 1;
 for i = 1:length(objectives) % loop over models
     subplot(4,2,plot_count)
@@ -210,13 +210,13 @@ for i = 1:length(objectives) % loop over models
     
     if min(results_min(:,i)) < 0
         if max(results_max(:,i)) > 0
-            yrange = [1.1*min(results_min(:,i)), 1.1*max(results_max(:,i))];
+            yrange = [1.15*min(results_min(:,i)), 1.15*max(results_max(:,i))];
         else
-            yrange = [1.1*min(results_min(:,i)), 0];
+            yrange = [1.15*min(results_min(:,i)), 0];
         end
     else
         if max(results_max(:,i)) > 0
-            yrange = [0, 1.1*max(results_max(:,i))];
+            yrange = [0, 1.15*max(results_max(:,i))];
         else
             yrange = [0, 0]; % should not happen
         end
@@ -250,7 +250,7 @@ for i = 1:length(objectives) % loop over models
     xticklabels({'PLC MUR1','PLC MUR2','PLC MUR3','PLC MUR4','PLC MUR5','PLC MUR6',...
                 'Huh7 MUR1','Huh7 MUR2','Huh7 MUR3','Huh7 MUR4','Huh7 MUR5','Huh7 MUR6'})
     xtickangle(45)
-    ylabel('Flux [mM/h]')
+    ylabel('Flux [mM/2d]')
     title(titles(i))
     
     plot_count = plot_count + 1;
@@ -336,7 +336,7 @@ results_max
 set(0,'DefaultAxesFontName','Arial','DefaultTextFontName','Arial');
 titles = {'ATP synthase (ATPS4mi)','NADH dehydrogenase (NADH2\_u10mi)','ubiquinol-cytochrome c reductase (CYOR\_u10mi)',...
     'cytochrome c oxidase (CYOOm2i)','cytochrome c oxidase (CYOOm3i)','Pyruvate dehydrogenase (PDHm)'};
-figure('pos',[10 10 1550 700],'DefaultAxesFontSize',16)
+figure('pos',[10 10 1400 700],'DefaultAxesFontSize',16)
 plot_count = 1;
 for i = 1:length(objectives) % loop over models
     subplot(3,2,plot_count)
@@ -345,13 +345,13 @@ for i = 1:length(objectives) % loop over models
     
     if min(results_min(:,i)) < 0
         if max(results_max(:,i)) > 0
-            yrange = [1.1*min(results_min(:,i)), 1.1*max(results_max(:,i))];
+            yrange = [1.15*min(results_min(:,i)), 1.15*max(results_max(:,i))];
         else
-            yrange = [1.1*min(results_min(:,i)), 0];
+            yrange = [1.15*min(results_min(:,i)), 0];
         end
     else
         if max(results_max(:,i)) > 0
-            yrange = [0, 1.1*max(results_max(:,i))];
+            yrange = [0, 1.15*max(results_max(:,i))];
         else
             yrange = [0, 0]; % should not happen
         end
@@ -385,7 +385,7 @@ for i = 1:length(objectives) % loop over models
     xticklabels({'PLC MUR1','PLC MUR2','PLC MUR3','PLC MUR4','PLC MUR5','PLC MUR6',...
                 'Huh7 MUR1','Huh7 MUR2','Huh7 MUR3','Huh7 MUR4','Huh7 MUR5','Huh7 MUR6'})
     xtickangle(45)
-    ylabel('Flux [mM/h]')
+    ylabel('Flux [mM/2d]')
     title(titles(i))
     
     plot_count = plot_count + 1;
