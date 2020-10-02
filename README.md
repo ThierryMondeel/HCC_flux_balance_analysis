@@ -25,7 +25,7 @@ All results can be reproduced by executing the various Jupyter Python notebooks 
     - Uses getScore.m
     - Generates RAS_scores.mat
     - Produces the biomass vs NNR plot
-    - Saves the constrained models for NNR = 0.1048
+    - Saves the constrained models for NNR = 0.003607
     - Performs the FVA analyses and makes the resulting plots
 * Export_Recon3D_301_patched_to_json.ipynb
     - Generates Recon3DModel_301_patched.json
