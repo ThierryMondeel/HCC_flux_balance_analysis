@@ -205,6 +205,10 @@ for cell_line = {'PLC','Huh7'}
     end
 end
 
+% extrapolate results to 48 hours
+results_min = 48 * results_min;
+results_max = 48 * results_max;
+
 % look at results for things that are close to boundaries
 results_min
 results_max
@@ -261,7 +265,7 @@ for i = 1:length(objectives) % loop over models
     xticklabels({'PLC MUR1','PLC MUR2','PLC MUR3','PLC MUR4','PLC MUR5','PLC MUR6',...
                 'Huh7 MUR1','Huh7 MUR2','Huh7 MUR3','Huh7 MUR4','Huh7 MUR5','Huh7 MUR6'})
     xtickangle(45)
-    ylabel('Flux [mM/h]')
+    ylabel('Flux [mM/2d]')
     title(titles(i))
     
     plot_count = plot_count + 1;
@@ -304,6 +308,10 @@ for cell_line = {'PLC','Huh7'}
     end
 end
 
+% extrapolate results to 48 hours
+results_min = 48 * results_min;
+results_max = 48 * results_max;
+
 % look at results for things that are close to boundaries
 results_min
 results_max
@@ -338,6 +346,10 @@ for cell_line = {'PLC','Huh7'}
         model_count = model_count + 1;
     end
 end
+
+% extrapolate results to 48 hours
+results_min = 48 * results_min;
+results_max = 48 * results_max;
 
 % look at results for things that are close to boundaries
 results_min
@@ -396,7 +408,7 @@ for i = 1:length(objectives) % loop over models
     xticklabels({'PLC MUR1','PLC MUR2','PLC MUR3','PLC MUR4','PLC MUR5','PLC MUR6',...
                 'Huh7 MUR1','Huh7 MUR2','Huh7 MUR3','Huh7 MUR4','Huh7 MUR5','Huh7 MUR6'})
     xtickangle(45)
-    ylabel('Flux [mM/h]')
+    ylabel('Flux [mM/2d]')
     title(titles(i))
     
     plot_count = plot_count + 1;
