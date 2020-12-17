@@ -43,8 +43,8 @@ length(find(~isnan(RASmatrix(:,1)))), length(RASmatrix(:,1))
 save('../Data/RAS_scores.mat','RASmatrix','-mat')
 
 %% Plot maximal biomass flux vs. alpha factor on all 12 models
-% which NNR factors to try?
-factor_alpha_values = logspace(0.2,-3.5,50); % logarithmically from 1 to 0.001
+% which scaling factors to try?
+factor_alpha_values = logspace(0.2,-3.5,50); % logarithmically spaced
 final_alpha_index = 36; 
 final_alpha = factor_alpha_values(final_alpha_index);
 
@@ -120,7 +120,7 @@ semilogx(factor_alpha_values,results(7:12,:),':') % Huh7
 %plot(factor_alpha_values, results(1:6,:),'k*') % diagnostic to see where the alpha values fall
 xlim([10^(-3.5),10^(0.2)])
 xlabel('Factor \alpha')
-ylabel('Maximal biomass flux [mM/2d]')
+ylabel('Maximal biomass flux [mM/h]')
 legend('PLC MUR1','PLC MUR2','PLC MUR3','PLC MUR4','PLC MUR5','PLC MUR6',...
         'Huh7 MUR1','Huh7 MUR2','Huh7 MUR3','Huh7 MUR4','Huh7 MUR5','Huh7 MUR6',...
         'Location', 'northwest')
@@ -146,7 +146,7 @@ xticklabels({'MUR1','MUR2','MUR3','MUR4','MUR5','MUR6',...
               'MUR1','MUR2','MUR3','MUR4','MUR5','MUR6'})
 xtickangle(45)
 
-ylabel('Maximal biomass flux [mM/2d]')
+ylabel('Maximal biomass flux [mM/h]')
 ylim([0, 0.015])
 xlim([0.5,12.5])
 
@@ -261,7 +261,7 @@ for i = 1:length(objectives) % loop over models
     xticklabels({'PLC MUR1','PLC MUR2','PLC MUR3','PLC MUR4','PLC MUR5','PLC MUR6',...
                 'Huh7 MUR1','Huh7 MUR2','Huh7 MUR3','Huh7 MUR4','Huh7 MUR5','Huh7 MUR6'})
     xtickangle(45)
-    ylabel('Flux [mM/2d]')
+    ylabel('Flux [mM/h]')
     title(titles(i))
     
     plot_count = plot_count + 1;
@@ -345,7 +345,7 @@ results_max
 
 % plot
 set(0,'DefaultAxesFontName','Arial','DefaultTextFontName','Arial');
-titles = {'ATP synthase (ATPS4mi)','NADH dehydrogenase (NADH2\_u10mi)','ubiquinol-cytochrome c reductase (CYOR\_u10mi)',...
+titles = {'ATP synthase (ATPS4mi)','NADH dehydrogenase (NADH2\_u10mi)','cytochrome c reductase (CYOR\_u10mi)',...
     'cytochrome c oxidase (CYOOm2i)','cytochrome c oxidase (CYOOm3i)','Pyruvate dehydrogenase (PDHm)'};
 figure('pos',[10 10 1400 700],'DefaultAxesFontSize',16)
 plot_count = 1;
@@ -396,7 +396,7 @@ for i = 1:length(objectives) % loop over models
     xticklabels({'PLC MUR1','PLC MUR2','PLC MUR3','PLC MUR4','PLC MUR5','PLC MUR6',...
                 'Huh7 MUR1','Huh7 MUR2','Huh7 MUR3','Huh7 MUR4','Huh7 MUR5','Huh7 MUR6'})
     xtickangle(45)
-    ylabel('Flux [mM/2d]')
+    ylabel('Flux [mM/h]')
     title(titles(i))
     
     plot_count = plot_count + 1;
