@@ -1,8 +1,8 @@
 # Simultaneous integration of gene expression and nutrient availability for studying metabolism of hepatocellular carcinoma
 
-This repository contains all files and data to reproduce the publication "Simultaneous integration of gene expression and nutrient availability for studying metabolism of hepatocellular carcinoma" by Ewelina Węglarz-Tomczak, Thierry D.G.A. Mondeel, Diewertje G.E. Piebes and Hans V. Westerhoff. 
+This repository contains all files and data to reproduce the publication "Simultaneous Integration of Gene Expression and Nutrient Availability for Studying the Metabolism of Hepatocellular Carcinoma Cell Lines" by Ewelina Węglarz-Tomczak, Thierry D.G.A. Mondeel, Diewertje G.E. Piebes and Hans V. Westerhoff. 
 
-If you use or reference the results from this work please cite the preprint https://doi.org/10.3390/biom11040490.
+If you use or reference the results from this work please cite the publication https://doi.org/10.3390/biom11040490.
 
 # Steps to reproduce the analysis in the publication
 
